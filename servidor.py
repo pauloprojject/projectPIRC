@@ -1,6 +1,7 @@
 #pip install youtube-search
 
 import socket
+import http
 from youtube_search import YoutubeSearch
 import json
 
@@ -35,7 +36,7 @@ print('Servidor no ar...')
 while True:
     msg, cliente = tcp.recvfrom(1024)  # quantidade de bytes que espera receber
     a = youtube_retorno(msg.decode())
-    # print(a)
+    print(a)
     if msg:
         tcp.sendto(a.encode(), orig)
     print('Recebi de ', cliente, msg.decode()) # decode = de bytes para string
