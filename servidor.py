@@ -1,3 +1,4 @@
+
 #pip install youtube-search
 
 import socket
@@ -10,7 +11,7 @@ def youtube_retorno(a):
     xablau = results.split('"')
 
     b = ''
-    
+
     for i in range(len(xablau)):
         if "title" in xablau[i]:
             # print("=" * 20)
@@ -24,21 +25,19 @@ def youtube_retorno(a):
     return b
 
 
-HOST = '127.0.0.1'  # Endereco IP do Servidor
+HOST = '0.0.0.0'  # Endereco IP do Servidor
 PORT = 40000  # Porta que o Servidor está
-tcp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 orig = (HOST, PORT)
-tcp.bind(orig)
-
-
+udp.bind(orig)
 
 print('Servidor no ar...')
 while True:
-    msg, cliente = tcp.recvfrom(1024)  # quantidade de bytes que espera receber
+    msg, cliente = udp.recvfrom(1024)  # quantidade de bytes que espera receber
     a = youtube_retorno(msg.decode())
     print(a)
     if msg:
-        tcp.sendto(a.encode(), orig)
+        udp.sendto(a.encode(), cliente)
     print('Recebi de ', cliente, msg.decode()) # decode = de bytes para string
-    break
-tcp.close()
+udp.close()
