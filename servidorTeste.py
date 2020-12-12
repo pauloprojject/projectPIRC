@@ -42,22 +42,14 @@ while True:
     if msg[0].upper() == 'LIST':
         a = f"""
         comandos da aplicação:
-<<<<<<< HEAD
         PESQ: passa a música como parametro para o comando (EX: PESQ música)
-=======
-        PESQ: passa a música como parametro para o comando
->>>>>>> 4bc127b4c22febc43d0993c0529ec3d0f2c542db
         ALL: testo todo
         URL: url da música
         TITLE: titulo da música
         EXIT: terminar a aplicação
         """
         udp.sendto(a.encode(), cliente)
-<<<<<<< HEAD
     elif msg[0] == 'PESQ':
-=======
-    if msg[0].upper() == 'PESQ':
->>>>>>> 4bc127b4c22febc43d0993c0529ec3d0f2c542db
         if msg[1:] != '':
             f = msg[1:]
             msc = youtube_retorno(str(f))
