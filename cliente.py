@@ -9,7 +9,7 @@ dest = (HOST, PORT)
 
 while True:
      try:
-          msg = input('BTP> ')
+          msg = input('> ')
      except:
           msg = 'QUIT'
      udp.sendto(msg.encode(), dest)
@@ -17,10 +17,11 @@ while True:
      print(msg2.decode())
      msg = msg.split()
      if msg[0] == 'LIST':
-          print(msg2.decode())
+          msg2.decode()
      elif msg[0] == 'PESQ':
-          a = str(msg[1])    
-          print(msg2.decode())
+          a = str(msg[1:])
           udp.sendto(a.encode(), dest)
-          print(msg2.decode())
+          msg2.decode()
+     elif msg[0] == 'EXIT':
+          break
 udp.close()
