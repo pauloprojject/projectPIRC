@@ -4,6 +4,7 @@
 import socket
 from youtube_search import YoutubeSearch
 import json
+import re
 
 def youtube_retorno(a):
     results = YoutubeSearch(a, max_results=1).to_json()
@@ -37,52 +38,54 @@ while True:
     msg, cliente = udp.recvfrom(TAM_MSG)
     if not msg: break
     msg = msg.decode().split()
+    msg[0].upper()
     if msg[0].upper() == 'LIST':
         a = f"""
         comandos da aplicação:
-        PESQ: input para a pesquisa da música
+        PESQ: passa a música como parametro para o comando (EX: PESQ música)
         ALL: testo todo
         URL: url da música
         TITLE: titulo da música
         EXIT: terminar a aplicação
         """
         udp.sendto(a.encode(), cliente)
-    if msg[0].upper() == 'PESQ':
-        msg1, cliente = udp.recvfrom(TAM_MSG)
-        if msg1.decode() != '':
-            msc = youtube_retorno(msg.decode())
+    elif msg[0] == 'PESQ':
+        if msg[1:] != '':
+            f = msg[1:]
+            msc = youtube_retorno(str(f))
+            print(msc)
             b = 'Música pesquisada, para ver o conteúdo use o comando ALL'
             udp.sendto(b.encode(), cliente)
         else:
             c = 'digite um argumento válido.'
             udp.sendto(c.encode(), cliente)
-    if msg[0].upper() == 'ALL':
+    elif msg[0] == 'ALL':
         if msc:
             udp.sendto(msc.encode(), cliente)
         else:
             c = 'Pesquise uma música antes desse comando.'
             udp.sendto(c.encode(), cliente)
-    if msg[0].upper() == 'URL':
+    elif msg[0] == 'URL':
         if msc:
             d = msc
-            d.split('\n')
-            udp.sendto(d[2].encode(), cliente)
+            x = re.split('\n', d)
+            udp.sendto(x[2].encode(), cliente)
         else:
             c = 'Pesquise uma música antes desse comando.'
             udp.sendto(c.encode(), cliente)
-    if msg[0].upper() == 'TITLE':
+    elif msg[0] == 'TITLE':
         if msc:
             e = msc
-            e.split('\n')
-            udp.sendto(e[0].encode(), cliente)
+            z = re.split('\n', e)
+            udp.sendto(z[0].encode(), cliente)
         else:
             c = 'Pesquise uma música antes desse comando.'
             udp.sendto(c.encode(), cliente)
-    if msg[0] == 'EXIT':
+    elif msg[0] == 'EXIT':
         c = 'Saindo da aplicação...'
         udp.sendto(c.encode(), cliente)
-    else:
-        c = '-ERR Invalid command\n'
-        udp.sendto(c.encode(), cliente)
+    #else:
+    #    c = '-ERR Invalid command\n'
+    #    udp.sendto(c.encode(), cliente)
 udp.close()
 
