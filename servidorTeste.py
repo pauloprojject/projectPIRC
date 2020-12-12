@@ -40,7 +40,7 @@ while True:
     if msg[0].upper() == 'LIST':
         a = f"""
         comandos da aplicação:
-        PESQ: input para a pesquisa da música
+        PESQ: passa a música como parametro para o comando
         ALL: testo todo
         URL: url da música
         TITLE: titulo da música
@@ -48,9 +48,10 @@ while True:
         """
         udp.sendto(a.encode(), cliente)
     if msg[0].upper() == 'PESQ':
-        msg1, cliente = udp.recvfrom(TAM_MSG)
-        if msg1.decode() != '':
-            msc = youtube_retorno(msg.decode())
+        if msg[1:] != '':
+            f = msg[1:]
+            msc = youtube_retorno(str(f))
+            print(msc)
             b = 'Música pesquisada, para ver o conteúdo use o comando ALL'
             udp.sendto(b.encode(), cliente)
         else:
