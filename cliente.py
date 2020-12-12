@@ -22,6 +22,12 @@ while True:
           a = str(msg[1:])
           udp.sendto(a.encode(), dest)
           msg2.decode()
+     elif msg[0] == 'ALL':
+          msg2.decode()
+     elif msg[0] == 'URL':
+          msg2.decode()
+     elif msg[0] == 'TITLE':
+          msg2.decode()
      elif msg[0] == 'EXIT':
           break
 udp.close()
