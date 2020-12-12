@@ -82,6 +82,7 @@ while True:
         c = 'Saindo da aplicação...'
         udp.sendto(c.encode(), cliente)
     else:
-            con.send(str.encode('-ERR Invalid command\n'))
+        c = '-ERR Invalid command\n'
+        udp.sendto(c.encode(), cliente)
 udp.close()
 
