@@ -44,7 +44,7 @@ while True:
         comandos da aplicação:
         PESQ: passa a música como parametro para o comando (EX: PESQ música)
         ALL: testo todo
-        URL: url da música
+        URL: url da música parametros: open - abre o link no seu navegador padrão
         TITLE: titulo da música
         EXIT: terminar a aplicação
         """
@@ -84,8 +84,8 @@ while True:
     elif msg[0] == 'EXIT':
         c = 'Saindo da aplicação...'
         udp.sendto(c.encode(), cliente)
-    #else:
-    #    c = '-ERR Invalid command\n'
-    #    udp.sendto(c.encode(), cliente)
+    else:
+        c = '-ERR Invalid command\n'
+        udp.sendto(c.encode(), cliente)
 udp.close()
 
