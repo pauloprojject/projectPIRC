@@ -33,7 +33,7 @@ while True:
                d = msc
                d = d.split("\n")
                print(d[2])
-          if len(msg) > 1:     
+          if len(msg) > 1:
                if msg[1].upper() == 'OPEN':
                     d = msc
                     d = d.split("\n")
