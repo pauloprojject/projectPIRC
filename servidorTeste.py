@@ -55,32 +55,19 @@ while True:
             msc = youtube_retorno(str(f))
             print(msc)
             b = 'Música pesquisada, para ver o conteúdo use o comando ALL'
-            udp.sendto(b.encode(), cliente)
+            udp.sendto(msc.encode(), cliente)
         else:
             c = 'digite um argumento válido.'
             udp.sendto(c.encode(), cliente)
     elif msg[0] == 'ALL':
-        if msc:
-            udp.sendto(msc.encode(), cliente)
-        else:
-            c = 'Pesquise uma música antes desse comando.'
-            udp.sendto(c.encode(), cliente)
+        o = 'ok'
+        udp.sendto(o.encode(), cliente)
     elif msg[0] == 'URL':
-        if msc:
-            d = msc
-            d = d.split("\n")
-            udp.sendto(d[2].encode(), cliente)
-        else:
-            c = 'Pesquise uma música antes desse comando.'
-            udp.sendto(c.encode(), cliente)
+        o = 'ok'
+        udp.sendto(o.encode(), cliente)
     elif msg[0] == 'TITLE':
-        if msc:
-            e = msc
-            e = msc.split('\n')
-            udp.sendto(e[0].encode(), cliente)
-        else:
-            c = 'Pesquise uma música antes desse comando.'
-            udp.sendto(c.encode(), cliente)
+        o = 'ok'
+        udp.sendto(o.encode(), cliente)
     elif msg[0] == 'EXIT':
         c = 'Saindo da aplicação...'
         udp.sendto(c.encode(), cliente)
