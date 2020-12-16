@@ -4,7 +4,7 @@
 import socket
 from youtube_search import YoutubeSearch
 import json
-import re
+
 
 def youtube_retorno(a):
     results = YoutubeSearch(a, max_results=1).to_json()
@@ -38,13 +38,13 @@ while True:
     msg, cliente = udp.recvfrom(TAM_MSG)
     if not msg: break
     msg = msg.decode().split()
-    msg[0].upper()
-    if msg[0].upper() == 'LIST':
+    msg[0] = msg[0].upper()
+    if msg[0] == 'LIST':
         a = f"""
         comandos da aplicação:
         PESQ: passa a música como parametro para o comando (EX: PESQ música)
         ALL: testo todo
-        URL: url da música parametros: open - abre o link no seu navegador padrão
+        URL: url da música
         TITLE: titulo da música
         EXIT: terminar a aplicação
         """
@@ -68,16 +68,16 @@ while True:
     elif msg[0] == 'URL':
         if msc:
             d = msc
-            x = re.split('\n', d)
-            udp.sendto(x[2].encode(), cliente)
+            d = d.split("\n")
+            udp.sendto(d[2].encode(), cliente)
         else:
             c = 'Pesquise uma música antes desse comando.'
             udp.sendto(c.encode(), cliente)
     elif msg[0] == 'TITLE':
         if msc:
             e = msc
-            z = re.split('\n', e)
-            udp.sendto(z[0].encode(), cliente)
+            e = msc.split('\n')
+            udp.sendto(e[0].encode(), cliente)
         else:
             c = 'Pesquise uma música antes desse comando.'
             udp.sendto(c.encode(), cliente)

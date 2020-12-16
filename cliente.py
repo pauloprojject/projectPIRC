@@ -1,7 +1,6 @@
 import socket
 import webbrowser
 
-
 HOST = '127.0.0.1'
 PORT = 40000
 
@@ -17,9 +16,11 @@ while True:
      msg2, cliente = udp.recvfrom(1024)
      print(msg2.decode())
      msg = msg.split()
+     msg[0] = msg[0].upper()
      if msg[0] == 'LIST':
           msg2.decode()
      elif msg[0] == 'PESQ':
+          a = str(msg[1:])
           msg2.decode()
      elif msg[0] == 'ALL':
           msg2.decode()
@@ -28,6 +29,7 @@ while True:
           if msg[1].upper() == 'OPEN':
                a = msg2.decode().split(' ')
                webbrowser.open(a[1])
+          
      elif msg[0] == 'TITLE':
           msg2.decode()
      elif msg[0] == 'EXIT':
