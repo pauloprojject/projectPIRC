@@ -1,7 +1,7 @@
 import socket
 import webbrowser
 
-HOST = '127.0.0.1'
+HOST = '186.235.53.69'
 PORT = 40000
 
 udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
