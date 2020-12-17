@@ -20,7 +20,6 @@ while True:
      if msg[0] == 'LIST':
           msg2.decode()
      elif msg[0] == 'PESQ':
-          a = str(msg[1:])
           msg2.decode()
      elif msg[0] == 'ALL':
           msg2.decode()
