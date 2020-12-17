@@ -54,31 +54,30 @@ while True:
             f = msg[1:]
             msc[cliente] = youtube_retorno(str(f))
             print(msc[cliente])
-            b = 'Música pesquisada, para ver o conteúdo use o comando ALL'
-            udp.sendto(b.encode(), cliente)
+            udp.sendto(msc[cliente].encode(), cliente)
         else:
             c = 'digite um argumento válido.'
             udp.sendto(c.encode(), cliente)
-    elif msg[0] == 'ALL':
-        if msc[cliente]:
-            udp.sendto(msc[cliente].encode(), cliente)
-        else:
-            c = 'Pesquise uma música antes desse comando.'
-            udp.sendto(c.encode(), cliente)
     elif msg[0] == 'URL':
-        if msc[cliente]:
-            d = msc[cliente]
-            d = d.split("\n")
-            udp.sendto(d[2].encode(), cliente)
-        else:
+        try:
+            if msc[cliente]:
+                d = msc[cliente]
+                d = d.split("\n")
+                udp.sendto(d[2].encode(), cliente)
+            else:
+                False
+        except KeyError:
             c = 'Pesquise uma música antes desse comando.'
             udp.sendto(c.encode(), cliente)
     elif msg[0] == 'TITLE':
-        if msc[cliente]:
-            e = msc[cliente]
-            e = msc[cliente].split('\n')
-            udp.sendto(e[0].encode(), cliente)
-        else:
+        try:
+            if msc[cliente]:
+                e = msc[cliente]
+                e = msc[cliente].split('\n')
+                udp.sendto(e[0].encode(), cliente)
+            else:
+                False
+        except KeyError:
             c = 'Pesquise uma música antes desse comando.'
             udp.sendto(c.encode(), cliente)
     elif msg[0] == 'EXIT':

@@ -26,10 +26,11 @@ while True:
           msg2.decode()
      elif msg[0] == 'URL':
           msg2.decode()
-          if msg[1].upper() == 'OPEN':
-               a = msg2.decode().split(' ')
-               webbrowser.open(a[1])
-          
+          if len(msg) > 1:
+               if msg[1].upper() == 'OPEN':
+                    a = msg2.decode().split(' ')
+                    webbrowser.open(a[1])
+
      elif msg[0] == 'TITLE':
           msg2.decode()
      elif msg[0] == 'EXIT':
