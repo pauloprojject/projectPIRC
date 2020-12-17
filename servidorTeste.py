@@ -32,10 +32,10 @@ udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 orig = (HOST, PORT)
 udp.bind(orig)
 print('servidor rodando...')
-
+msc = {}
 
 while True:
-    msg, cliente = udp.recvfrom(TAM_MSG)
+    msg, cliente = udp.recvfrom(TAM_MSG)    
     if not msg: break
     msg = msg.decode().split()
     msg[0] = msg[0].upper()
@@ -52,22 +52,35 @@ while True:
     elif msg[0] == 'PESQ':
         if msg[1:] != '':
             f = msg[1:]
-            msc = youtube_retorno(str(f))
-            print(msc)
+            msc[cliente] = youtube_retorno(str(f))
+            print(msc[cliente])
             b = 'Música pesquisada, para ver o conteúdo use o comando ALL'
-            udp.sendto(msc.encode(), cliente)
+            udp.sendto(b.encode(), cliente)
         else:
             c = 'digite um argumento válido.'
             udp.sendto(c.encode(), cliente)
     elif msg[0] == 'ALL':
-        o = 'ok'
-        udp.sendto(o.encode(), cliente)
+        if msc[cliente]:
+            udp.sendto(msc[cliente].encode(), cliente)
+        else:
+            c = 'Pesquise uma música antes desse comando.'
+            udp.sendto(c.encode(), cliente)
     elif msg[0] == 'URL':
-        o = 'ok'
-        udp.sendto(o.encode(), cliente)
+        if msc[cliente]:
+            d = msc[cliente]
+            d = d.split("\n")
+            udp.sendto(d[2].encode(), cliente)
+        else:
+            c = 'Pesquise uma música antes desse comando.'
+            udp.sendto(c.encode(), cliente)
     elif msg[0] == 'TITLE':
-        o = 'ok'
-        udp.sendto(o.encode(), cliente)
+        if msc[cliente]:
+            e = msc[cliente]
+            e = msc[cliente].split('\n')
+            udp.sendto(e[0].encode(), cliente)
+        else:
+            c = 'Pesquise uma música antes desse comando.'
+            udp.sendto(c.encode(), cliente)
     elif msg[0] == 'EXIT':
         c = 'Saindo da aplicação...'
         udp.sendto(c.encode(), cliente)
